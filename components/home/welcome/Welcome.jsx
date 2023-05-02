@@ -22,14 +22,14 @@ const Welcome = () => {
     <View>
       <View style={styles.container}>
         <Text style={styles.userName}>Hello, Eidris</Text>
-        <Text style={styles.welcomeMessage}>Find your perfect match</Text>
+        <Text style={styles.welcomeMessage}>Find your preffered product</Text>
       </View>
 
       <View style={styles.searchContainer}>
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            placeholder="Search for a job"
+            placeholder="Search for a product"
             value={searchVal}
             onChange={() => {}}
           />
@@ -56,12 +56,12 @@ const Welcome = () => {
                   router.push(`/search/${item}`);
                 }}
               >
-                <Text style={styles.tabText(activeJobType,item)}>{item}</Text>
+                <Text style={styles.tabText(activeJobType, item)}>{item}</Text>
               </TouchableOpacity>
             );
           }}
-          keyExtractor={item => item}
-          contentContainerStyle={{columnGap:SIZES.small}}
+          keyExtractor={(item) => item}
+          contentContainerStyle={{ columnGap: SIZES.small }}
           horizontal
         />
       </View>

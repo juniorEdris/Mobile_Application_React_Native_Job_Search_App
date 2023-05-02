@@ -30,7 +30,7 @@ const useFetch = (endpoint = "", id = "", query = {}) => {
       // const res = await axios.request(options);
       const res = await axios.get(`https://fakestoreapi.com/${endpoint}`);
 
-      console.log({ res: res.data });
+      // console.log({ res: res.data });
       setData(res.data);
       setIsLoading(false);
     } catch (error) {

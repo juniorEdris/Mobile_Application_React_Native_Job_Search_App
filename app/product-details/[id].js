@@ -27,28 +27,35 @@ const ProductDetails = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [activeTab, setActiveTab] = useState("About");
 
   const tabs = ["About", "Qualifications", "Responsibilities"];
 
   const fetchData = async () => {
     setIsLoading(true);
     setError(false);
-    await axios
-      .get(`https://fakestoreapi.com/products/${params.id}`)
-      .then((data) => {
-        setProductDetails(data?.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        setError(true);
-      });
+    try {
+      const res = await axios.get(
+        `https://fakestoreapi.com/products/${params.id}`
+      );
+      setProductDetails(res?.data);
+      setIsLoading(false);
+      // .then((data) => {
+      //   console.log({ x: data?.data });
+      //   console.log("fetchData success");
+      // })
+      // .catch((err) => {
+      // });
+    } catch (error) {
+      setIsLoading(false);
+      setError(true);
+    }
   };
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    refetch();
-    fetchData(false);
+    fetchData();
+    setRefreshing(false);
   }, []);
 
   const displayTabContent = () => {
@@ -57,20 +64,20 @@ const ProductDetails = () => {
         return (
           <Specifics
             title="Qualifications"
-            points={productDetails.rating?.rate ?? ["N/A"]}
+            points={productDetails?.rating?.rate ?? ["N/A"]}
           />
         );
 
       case "About":
         return (
-          <JobAbout info={productDetails.description ?? "No data provided"} />
+          <JobAbout info={productDetails?.description ?? "No data provided"} />
         );
 
       case "Responsibilities":
         return (
           <Specifics
             title="Responsibilities"
-            points={productDetails.categories ?? ["N/A"]}
+            points={productDetails?.categories ?? ["N/A"]}
           />
         );
 
@@ -81,7 +88,8 @@ const ProductDetails = () => {
 
   useEffect(() => {
     fetchData();
-  }, [params.id]);
+    console.log("fetchData");
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -106,7 +114,12 @@ const ProductDetails = () => {
           headerTitleAlign: "center",
         }}
       >
-        <>
+        <View
+          style={{
+            flex: 1,
+            padding: SIZES.medium,
+          }}
+        >
           <ScrollView
             showsHorizontalScrollIndicator={false}
             refreshControl={
@@ -117,28 +130,28 @@ const ProductDetails = () => {
               <ActivityIndicator size="large" color={COLORS.primary} />
             ) : error ? (
               <Text>Something went wrong</Text>
-            ) : data.length === 0 ? (
+            ) : !productDetails ? (
               <Text>No data available</Text>
             ) : (
               <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
                 <Company
                   companyLogo={productDetails?.image}
-                  jobTitle={productDetails?.title}
-                  companyName={productDetails?.category}
-                  location={productDetails?.price}
+                  jobTitle={productDetails?.title ?? "demo"}
+                  companyName={productDetails?.category ?? "demo cat"}
+                  location={productDetails?.price ?? "demo price"}
                 />
 
-                <JobTabs
-                  tabs={tabs}
-                  activeTab={activeTab}
-                  setActiveTab={setActiveTab}
-                />
+                {/* <JobTabs
+                    tabs={tabs}
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                  /> */}
 
-                {displayTabContent()}
+                {/* {displayTabContent()} */}
               </View>
             )}
           </ScrollView>
-        </>
+        </View>
       </Stack.Screen>
     </SafeAreaView>
   );

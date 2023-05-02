@@ -8,6 +8,7 @@ import { checkImageURL } from "../../../utils";
 const Company = ({ companyLogo, jobTitle, companyName, location }) => {
   return (
     <View style={styles.container}>
+      <Text>Details Company</Text>
       <View style={styles.logoBox}>
         <Image
           source={{
