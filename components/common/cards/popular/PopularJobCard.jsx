@@ -1,14 +1,34 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from "react";
+import { View, Text, Image } from "react-native";
 
-import styles from './popularjobcard.style'
+import styles from "./popularjobcard.style";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { checkImageURL, prodPlaceholder } from "../../../../utils";
 
-const PopularJobCard = () => {
+
+const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
   return (
-    <View>
-      <Text>PopularJobCard</Text>
-    </View>
-  )
-}
+    <TouchableOpacity
+      style={styles.container(selectedJob, item)}
+      onPress={() => handleCardPress(item)}
+    >
+      <TouchableOpacity style={styles.logoContainer(selectedJob, item)}>
+        <Image
+          source={{ uri: checkImageURL(item?.image) ? item?.image : prodPlaceholder }}
+          resizeMode="contain"
+          style={styles.logoImage}
+        />
+      </TouchableOpacity>
+      <Text style={styles.companyName} numberOfLines={1}>
+        {item?.title}
+      </Text>
 
-export default PopularJobCard
+      <View style={styles.infoContainer}>
+        <Text style={styles.jobName(selectedJob, item)}>{item?.category}</Text>
+        <Text style={styles.companyName}>${item?.price}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+export default PopularJobCard;

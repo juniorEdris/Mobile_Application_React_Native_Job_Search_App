@@ -9,7 +9,8 @@ const useFetch = ({ endpoint = "", query = {} }) => {
 
   const options = {
     method: "GET",
-    url: `https://jsonplaceholder.typicode.com/${endpoint}`,
+    // url: `https://jsonplaceholder.typicode.com/${endpoint}`,
+    url: `https://jsearch.p.rapidapi.com/${endpoint}`,
     params: {
       //   query: "Python developer in Texas, USA",
       //   page: "1",
@@ -26,10 +27,11 @@ const useFetch = ({ endpoint = "", query = {} }) => {
     setIsLoading(true);
     setError(false);
     try {
-      //   const res = await axios.request(options);
+      // const res = await axios.request(options);
       const res = await axios.get(`https://fakestoreapi.com/products`);
 
-      setData(res.data.data);
+      console.log({ res: res.data });
+      setData(res.data);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
