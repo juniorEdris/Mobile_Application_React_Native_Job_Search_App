@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 
 import styles from "./popularjobcard.style";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { checkImageURL, prodPlaceholder } from "../../../../utils";
 
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // import { RAPID_API_KEY } from "@env";
 import axios from "axios";
 
-const useFetch = ({ endpoint = "", query = {} }) => {
+const useFetch = (endpoint = "", id = "", query = {}) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -28,7 +28,7 @@ const useFetch = ({ endpoint = "", query = {} }) => {
     setError(false);
     try {
       // const res = await axios.request(options);
-      const res = await axios.get(`https://fakestoreapi.com/products`);
+      const res = await axios.get(`https://fakestoreapi.com/${endpoint}`);
 
       console.log({ res: res.data });
       setData(res.data);

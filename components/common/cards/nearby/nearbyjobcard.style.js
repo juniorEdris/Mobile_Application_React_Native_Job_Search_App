@@ -21,14 +21,15 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",
+    marginRight: SIZES.medium,
   },
-  logImage: {
+  logoImage: {
     width: "70%",
     height: "70%",
   },
   textContainer: {
     flex: 1,
-    marginHorizontal: SIZES.medium,
+    marginRight: SIZES.medium,
   },
   jobName: {
     fontSize: SIZES.medium,
